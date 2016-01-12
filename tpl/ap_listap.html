@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<div  ng-class="{ active:menu.HeaderText = 'Accesspoint AP', active:menu.setMainMenuActive('ap') }">
+
+<input type="text" class="form-control " ng-model="search" placeholder="Search">
+<br>  
+<table class="table table-striped" ng-class="{ active:menu.setMainMenu(true) }">  
+  <thead>  
+  <tr class="active"> 
+      
+    <th width="5%" class="css-order text-center" ng-click="predicate = 'de_id'; reverse=!reverse">#  
+    <span class="caret" ng-show="predicate=='de_id'"  ng-class="{'caret-reversed':predicate=='de_id' && !reverse}"></span>  
+    </th> 
+    
+    <th width="10%" class="css-order" ng-click="predicate = 'de_sn'; reverse=!reverse">S/N  
+    <span class="caret" ng-show="predicate=='de_sn'"  ng-class="{'caret-reversed':(predicate=='de_sn' && !reverse)}"></span>  
+    </th> 
+    
+    <th width="10%" class="css-order" ng-click="predicate = 'ap_smis'; reverse=!reverse">รหัสโรงเรียน  
+    <span class="caret" ng-show="predicate=='ap_smis'"  ng-class="{'caret-reversed':(predicate=='ap_smis' && !reverse)}"></span>  
+    </th> 
+    
+    <th width="10%" class="css-order"  ng-click="predicate = 'ap_sch'; reverse=!reverse">ชื่อโรงเรียน
+    <span class="caret" ng-show="predicate=='ap_sch'"  ng-class="{'caret-reversed':predicate=='ap_sch' && !reverse}"></span>  
+    </th> 
+    
+    <th width="5%" class="css-order" ng-click="predicate = 'ap_team'; reverse=!reverse">Controller  
+    <span class="caret" ng-show="predicate=='ap_team'"  ng-class="{'caret-reversed':(predicate=='ap_team' && !reverse)}"></span>  
+    </th>
+    
+    <th width="5%" class="css-order" ng-click="predicate = 'de_stat'; reverse=!reverse">สถานะ  
+    <span class="caret" ng-show="predicate=='de_stat'"  ng-class="{'caret-reversed':(predicate=='de_stat' && !reverse)}"></span>  
+    </th>
+    
+    <th width="5%" class="css-order" ng-click="predicate = 'de_warranty_end'; reverse=!reverse">หมดประกัน  
+    <span class="caret" ng-show="predicate=='de_warranty_end'"  ng-class="{'caret-reversed':(predicate=='de_warranty_end' && !reverse)}"></span>  
+    </th>
+    
+  
+    <th width="5%"  class="text-center">  
+    </th>  
+    
+     <th width="5%"  class="text-center">  
+
+    </th> 
+  </tr>  
+  </thead>  
+  
+  <!--       BODY     -->
+  
+  <tbody>  
+  <tr ng-repeat="data in ap | filter:search | orderBy:predicate:reverse">
+      
+   <td class="text-center">{{$index+1}}</td>  
+   
+   <td  hidden>{{data.de_id}}</td>
+    <td>{{data.de_sn}}</td> 
+     
+    <td><a href="#/sch_view/{{data.ap_smis}}" target="_blank">{{data.ap_smis}}</a></td>  
+
+    <td>{{data.ap_sch}}</td>  
+    
+    <td>{{data.ap_team}}</td>  
+    
+    <td>{{data.de_stat}}</td>  
+    
+    <td>{{data.de_warranty_end | date:'dd-MM-yy'}}</td>  
+    
+     
+    
+    <td class="text-center">  
+      <a href="http://prinnm.com/sp/project_data/ap_pdf/{{data.ap_smis}}.pdf" target="_blank"><i class="glyphicon glyphicon-file"></i></a>
+      
+    </td>  
+    
+     <td class="text-center">  
+      <a href="#/ap_edit/{{data.de_sn}}"><i class="glyphicon glyphicon-pencil"></i></a>
+    </td>
+ 
+  </tr>  
+  </tbody>  
+</table> 
+
+    </div>

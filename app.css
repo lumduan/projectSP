@@ -1,0 +1,19 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Oct 13, 2015, 1:25:23 PM
+    Author     : sarat_000
+*/
+
+/*สัญลักษณ์การเรียง แบบกลับหัว*/  
+.caret-reversed{  
+    border-top-width: 0;  
+    border-bottom: 4px solid #000000;    
+}  
+/*เปลี่ยนเมาส์เป้นรูปมือ เมื่อใช้ css ตัวนี้*/  
+.css-order{  
+    cursor: pointer;  
+}  

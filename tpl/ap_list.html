@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<div  ng-class="{ active:menu.HeaderText = 'Accesspoint School', active:menu.setMainMenuActive('ap') }">
+
+<input type="text" class="form-control " ng-model="search" placeholder="Search">
+<br>  
+<table class="table table-striped" ng-class="{ active:menu.setMainMenu(true) }">  
+  <thead>  
+  <tr class="active"> 
+      
+    <th width="5%" class="css-order text-center" ng-click="predicate = 'ap_smis'; reverse=!reverse">#  
+    <span class="caret" ng-show="predicate=='ap_smis'"  ng-class="{'caret-reversed':predicate=='ap_smis' && !reverse}"></span>  
+    </th> 
+    
+    <th width="10%" class="css-order" ng-click="predicate = 'ap_smis'; reverse=!reverse">รหัส  
+    <span class="caret" ng-show="predicate=='ap_smis'"  ng-class="{'caret-reversed':(predicate=='ap_smis' && !reverse)}"></span>  
+    </th> 
+    
+    <th width="30%" class="css-order" ng-click="predicate = 'ap_sch'; reverse=!reverse">ชื่อโรงเรียน  
+    <span class="caret" ng-show="predicate=='ap_sch'"  ng-class="{'caret-reversed':(predicate=='ap_sch' && !reverse)}"></span>  
+    </th> 
+    
+    <th class="css-order"  ng-click="predicate = 'ap_city'; reverse=!reverse">จังหวัด
+    <span class="caret" ng-show="predicate=='ap_city'"  ng-class="{'caret-reversed':predicate=='ap_city' && !reverse}"></span>  
+    </th> 
+    
+    <th width="30%" class="css-order" ng-click="predicate = 'ap_teacher'; reverse=!reverse">ผู้รับผิดชอบ  
+    <span class="caret" ng-show="predicate=='ap_teacher'"  ng-class="{'caret-reversed':(predicate=='ap_teacher' && !reverse)}"></span>  
+    </th>
+    
+    <th width="30%" class="css-order" ng-click="predicate = 'ap_tel1'; reverse=!reverse">เบอร์โทรศัพท์  
+    <span class="caret" ng-show="predicate=='ap_tel1'"  ng-class="{'caret-reversed':(predicate=='ap_tel1' && !reverse)}"></span>  
+    </th>
+    
+    <th width="5%" >   
+    </th>  
+    
+    <th width="5%"  class="text-center">  
+    <!--
+    <a href="#/new"><i class="glyphicon glyphicon-plus"></i></a> 
+    -->
+    </th>  
+  </tr>  
+  </thead>  
+  
+  <!--       BODY     -->
+  
+  <tbody>  
+  <tr ng-repeat="data in ap | filter:search | orderBy:predicate:reverse ">
+      
+   <td class="text-center">{{$index+1}}</td>  
+   
+    <td>{{data.ap_smis}}</td> 
+     
+    <td><a href="#/sch_view/{{data.ap_smis}}" target="_blank">{{data.ap_sch}}</a></td>  
+
+    <td>{{data.ap_city}}</td>  
+    
+    <td>{{data.ap_teacher}}</td>  
+    
+    <td>{{data.ap_tel1}}</td>  
+    
+     <td></td>  
+    
+    <td class="text-center">  
+      <a href="http://prinnm.com/sp/project_data/ap_pdf/{{data.ap_smis}}.pdf" target="_blank"><i class="glyphicon glyphicon-file"></i></a>
+      
+    </td>  
+    <!-- <td class="text-center">  
+      <a ng-href="#/" ng-click="deleteData(data.ap_smis)"><i class="glyphicon glyphicon-remove"></i></a>   
+    </td>  --> 
+  </tr>  
+  </tbody>  
+</table> 
+
+    </div>

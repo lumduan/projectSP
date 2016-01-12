@@ -1,0 +1,624 @@
+<div class="container" >
+        
+        
+    <!--    <div > 
+            <ul class="nav nav-pills nav-justified" ng-repeat="data in ap | limitTo:-1" >
+                <li class='active'><a href="#/ap">Back</a></li>
+                <li><a href="#/ap_edit/{{data.ap_smis}}">เปลี่ยนแปลงข้อมูล โครงการ AP</a></li>
+                <li class=''><a href="http://prinnm.com/sp/project_data/ap_pdf/{{data.ap_smis}}.pdf" target="_blank">ดูรายงาน</a></li>
+              </ul>
+            <br>
+        </div> 
+        
+    -->
+    
+    <!----------------------------- แสดงข้อมูลพื้นฐานของโรงเรียน  ------------------------------------------->
+    
+<div class = "panel panel-primary" ng-repeat="data in sch | limitTo:-1">   
+        
+          <div class = "panel-heading" >
+            <h4 class = "panel-title">ข้อมูลพื้นฐานของโรงเรียน {{data.sch_name}} ({{data.sch_name_e}})</h4>
+          </div>
+        
+          
+             <table class="table" ng-repeat="data in sch | limitTo:-1">  
+                 
+                <tr>  
+                    <td class="active text-right">ชื่อโรงเรียน :</td> 
+                    <td>{{data.sch_name}} ({{data.sch_name_e}})<br>
+                        <a ng-href="http://data.bopp-obec.info/emis/schooldata-view.php?School_ID={{data.sch_ten}}&Area_CODE={{data.sch_smis.substring(0,4)}}" target="_blank"> แผนที่ </td> 
+                    <td class="active text-right">ที่อยู่ :</td>
+                    <td>{{data.sch_village}} {{data.sch_village}} {{data.sch_tambon}} {{data.sch_amphoe}} {{data.sch_city}} {{data.sch_postal}}</td>
+                    <td></td>
+    
+                </tr>  
+                <tr>  
+                    <td class="active text-right">Tel / Fax :</td> 
+                    <td>{{data.sch_tel1}} / {{data.sch_fax}} </td> 
+                    <td class="active text-right">Web / Email :</td>
+                    <td>{{data.sch_web}} / {{data.sch_email}} </td>
+                    <td></td> 
+                </tr>  
+                <tr>  
+                    <td class="active text-right">ขนาดโรงเรียน :</td> 
+                    <td>{{data.sch_type}}</td> 
+                    <td class="active text-right">รหัส smis / รหัส 10 หลัก :</td>
+                    <td>{{data.sch_smis}} / {{data.sch_ten}}</td>  <!-- .substring(0,4) -->
+                    <td></td>  
+                </tr>  
+                
+                 <tr>  
+                    <td class="active text-right">วันก่อตั้งโรงเรียน :</td>
+                    <td>{{data.sch_promote}} </td>
+                    <td class="active text-right">ผู้อำนวยการ :</td> 
+                    <td>{{data.sch_director}}</td> 
+                    
+                    <td></td>  
+                </tr> 
+                       
+                 <tr>  
+                    <td class="active text-right">ระยะทางไปตัวอำเภอ :</td>
+                    <td>{{data.sch_to_office}} กม. / ระยะทางไปเขตฯ {{data.sch_to_amphoe}} กม. </td>
+                    <td class="active text-right">ข้อมูลอัพเดทเมื่อ :</td> 
+                    <td>{{data.sch_update}}</td> 
+                    
+                    <td></td>  
+                </tr> 
+            </table> 
+        
+    <!--- ส่วนการแสดง Footter ข้อมูลโรงเรียนทั่วไป --->
+        <table class="table"> 
+            <tr class="active"> 
+                <td class="text-center"><a ng-href="http://data.bopp-obec.info/emis/schooldata-view_student.php?School_ID={{data.sch_ten}}&Area_CODE={{data.sch_smis.substring(0,4)}}" target="_blank"><i class="glyphicon glyphicon-education"></i> ข้อมูลนักเรียน</td> 
+                <td class="text-center"><a ng-href="http://data.bopp-obec.info/emis/schooldata-view_techer.php?School_ID={{data.sch_ten}}&Area_CODE={{data.sch_smis.substring(0,4)}}" target="_blank"><i class="glyphicon glyphicon-user"></i> ข้อมูลครูบุคลากร </td>
+                <td class="text-center"><a ng-href="http://data.bopp-obec.info/emis/schooldata-view_com-internet.php?School_ID={{data.sch_ten}}&Area_CODE={{data.sch_smis.substring(0,4)}}" target="_blank"><i class="glyphicon glyphicon-globe"></i> ข้อมูลระบบ IT. </td>
+                <td class="text-center"><a ng-href="http://data.bopp-obec.info/emis/schooldata-view_bobec.php?School_ID={{data.sch_ten}}&Area_CODE={{data.sch_smis.substring(0,4)}}" target="_blank"><i class="glyphicon glyphicon-home"></i> ข้อมูลสิ่งก่อสร้าง </td>
+                <td class="text-center"><a ng-href="http://data.bopp-obec.info/emis/schooldata-view_mobec.php?School_ID={{data.sch_ten}}&Area_CODE={{data.sch_smis.substring(0,4)}}" target="_blank"><i class="glyphicon glyphicon-folder-open"></i> ข้อมูลครุภัณฑ์ </td>
+            </tr>
+        </table>   
+        
+    </div>      <!---------------------------จบส่วนแสดง แสดงรายละเอียด โรงเรียน ----------------------------->
+
+    
+    <!----------------------------- แสดง JOB ที่เคยเข้าในโรงเรียนนี้  ------------------------------------------->
+<div class = "panel panel-success">   
+        
+          <div class = "panel-heading">
+            <h4 class = "panel-title">รายละเอียดการเข้างานที่ผ่านมา</h4>
+          </div>
+        
+       
+ <table class="table table-striped" ng-class="{ active:menu.setMainMenu(true) }" ng-repeat="data in job  | limitTo:-1 " ng-show=" data.job_smis != null">  
+  <thead>  
+  <tr class="active" > 
+      
+    <th width="5"%" class="css-order text-center" ng-click="predicate = 'job_id'; reverse=!reverse">#  
+    <span class="caret" ng-show="predicate=='job_id'"  ng-class="{'caret-reversed':predicate=='job_id' && !reverse}"></span>  
+    </th>     
+    
+    <th width="10%" class="css-order" ng-click="predicate = 'job_date'; reverse=!reverse">วันที่  
+    <span class="caret" ng-show="predicate=='job_date'"  ng-class="{'caret-reversed':(predicate=='job_date' && !reverse)}"></span>  
+    </th> 
+    
+    <th width="10%" class="css-order"  ng-click="predicate = ''; reverse=!reverse">ติดต่อครู
+    <span class="caret" ng-show="predicate==''"  ng-class="{'caret-reversed':predicate=='' && !reverse}"></span>  
+    </th> 
+    
+    <th width="5%" class="css-order"  ng-click="predicate = ''; reverse=!reverse">เบอร์-ครู
+    <span class="caret" ng-show="predicate==''"  ng-class="{'caret-reversed':predicate=='' && !reverse}"></span>  
+    </th> 
+    
+    <th width="10%" class="css-order" ng-click="predicate = 'job_project'; reverse=!reverse">โครงการ  
+    <span class="caret" ng-show="predicate=='job_project'"  ng-class="{'caret-reversed':(predicate=='job_project' && !reverse)}"></span>  
+    </th>
+    
+    <th width="5%" class="css-order" ng-click="predicate = 'job_type'; reverse=!reverse">ประเภท  
+    <span class="caret" ng-show="predicate=='job_type'"  ng-class="{'caret-reversed':(predicate=='job_type' && !reverse)}"></span>  
+    </th>
+    
+    <th width="10%" class="css-order" ng-click="predicate = 'job_dea'; reverse=!reverse">ตัวแทน  
+    <span class="caret" ng-show="predicate=='job_dea'"  ng-class="{'caret-reversed':(predicate=='job_dea' && !reverse)}"></span>  
+    </th>  
+    
+    <th width="5%" class="css-order" ng-click="predicate = 'job_dea'; reverse=!reverse">เบอร์ตัวแทน  
+     
+    </th> 
+
+    <th width="7%" class="css-order" ng-click="predicate = 'job_stat'; reverse=!reverse">สถานะ  
+     
+    </th> 
+    
+    <th width="28%" class="css-order" ng-click="predicate = 'job_note'; reverse=!reverse">รายละเอียด  
+    <span class="caret" ng-show="predicate=='job_note'"  ng-class="{'caret-reversed':(predicate=='job_note' && !reverse)}"></span>  
+    </th> 
+    
+  </tr>  
+  </thead>  
+  
+  <!--       BODY     -->
+  
+  <tbody>  
+  <tr ng-repeat="data in job | filter:search | orderBy:predicate:reverse ">
+      
+   <td class="text-center">{{$index+1}}</td>  
+    
+
+    <td>{{data.job_date | date:'dd-MM-yyyy HH:mm'}}</td>  
+    
+    <td>{{data.job_tea}}</td>
+    
+    <td>{{data.job_tea_tel}}</td>
+    
+    <td>{{data.job_project}}</td>  
+    
+    <td>{{data.job_type}}</td>  
+    
+    <td>{{data.job_dea}}</td>  
+    
+    <td>{{data.job_dea_tel}}</td>  
+    
+    <td>{{data.job_stat}}</td> 
+    
+    <td>{{data.job_note}}</td>  
+     
+   
+  </tr>  
+  </tbody>  
+</table> 
+        
+    </div>     
+<!----------------------------- จบการแสดง JOB ที่เคยเข้าในโรงเรียนนี้  ------------------------------------------->
+ 
+    <!----------------------------- แสดงข้อมูล AP  ------------------------------------------->
+    
+<div class = "panel panel-info" ng-repeat="data in ap | limitTo:-1" ng-show="data.ap_smis != null">   
+        
+          <div class = "panel-heading" >
+            <h4 class = "panel-title">ข้อมูลโครงการ AP</h4>
+          </div>
+        
+          <table class="table" ng-repeat="data in ap | limitTo:-1">  
+              
+               <tr class="active">  
+                    <th width="10%"></th>
+                    <th width="25%">รายละเอียดทั่วไป</th>  
+                    <th width="10%" class="text-left"></th>
+                    <th width="45%"></th>  
+                    <th width="10%"></th>
+                </tr>  
+                     
+                <tr>  
+                    <td class="active text-right">จำนวน AP :<br>Team :</td> 
+                    <td>{{data.ap_sum}} ตัว<br>{{data.ap_team}} </td> 
+                    <td class="active text-right">อ.ผู้ดูแล AP :
+                        <br>เบอร์ :
+                        <br>E-Mail :
+                    </td>
+                    <td>{{data.ap_teacher}}
+                        <br>{{data.ap_tel1}}
+                        <br>{{data.ap_tea_mail}}
+                    </td>
+                    <td></td>  
+                </tr> 
+                
+                <tr>  
+                    
+                    <td class="active text-right">ปัญหา :</td>
+                    <td>{{data.ap_note}} </td> 
+                    <td class="active text-right">การแก้ไข :</td> 
+                    <td>{{data.ap_solve}}</td> 
+                    <td></td>  
+                </tr>
+            
+             
+             
+          </table>
+    
+             <table class="table" >  
+                <tr class="active">  
+                    <th width="10%">รายการ</th>
+                    <th width="10%">รุ่น</th>
+                    <th width="15%">หมายเลขเครื่อง</th>  
+                    <th width="5%">สถานะ</th>  
+                    <th width="45%">หมายเหตุ</th>  
+                    <th width="5%"></th>  
+                </tr>  
+                <tr ng-repeat="data in ap">  
+                    <td class="active text-right">{{data.de_type}} : </td> 
+                    <td>{{data.de_name}}</td> 
+                    <td>{{data.de_sn}}</td>  
+                    <td>{{data.de_stat}}</td>  
+                    <td>{{data.de_note}}</td>  
+                    <td class="text-center">
+                        <a href="#/ap_edit/{{data.de_sn}}"><i class="glyphicon glyphicon-pencil"></i></a>
+                    </td> 
+                </tr> 
+
+              </table> 
+        
+        <!--- ส่วนการแสดง Footter ข้อมูลโรงเรียนทั่วไป --->
+        <table class="table"> 
+            <tr class="active"> 
+                <td class="text-center"><a href="http://prinnm.com/sp/project_data/ap_pdf/{{data.ap_smis}}.pdf" target="_blank"><i class="glyphicon glyphicon-list-alt"></i> รายงาน MA 58/1</td> 
+                <td class="text-center"><a href="http://prinnm.com/sp/project_data/ap_pdf/{{data.ap_smis}}.pdf" target="_blank"><i class="glyphicon glyphicon-list-alt"></i> รายงาน MA 59/1</td>
+                <td class="text-center"><a href="http://prinnm.com/sp/project_data/ap_pdf/{{data.ap_smis}}.pdf" target="_blank"><i class="glyphicon glyphicon-list-alt"></i> รายงาน MA 59/2</td>
+                <td class="text-center"><a href="http://prinnm.com/sp/project_data/ap_pdf/{{data.ap_smis}}.pdf" target="_blank"><i class="glyphicon glyphicon-list-alt"></i> รายงาน MA 60/1</td>
+                <td class="text-center"><a href="http://prinnm.com/sp/project_data/ap_pdf/{{data.ap_smis}}.pdf" target="_blank"><i class="glyphicon glyphicon-list-alt"></i> รายงาน MA 60/2</td>
+            </tr>
+        </table>  
+    
+    
+    </div>      <!---------------------------จบส่วนแสดง แสดง AP ----------------------------->
+
+    
+ <!----------------------------- แสดงข้อมูล E-Classroom  ------------------------------------------->
+    
+ <div class = "panel panel-danger" ng-repeat="data in ecr | limitTo:-1" ng-show="data.ecr_smis != null">   
+        
+          <div class = "panel-heading" >
+            <h4 class = "panel-title">ข้อมูลโครงการ E-Classroom</h4>
+          </div>
+        
+          <table class="table" ng-repeat="data in ecr | limitTo:-1">  
+                    
+              <tr class="active">  
+                    <th width="10%"></th>
+                    <th width="25%">รายละเอียดทั่วไป</th>  
+                    <th width="10%" class="text-left"></th>
+                    <th width="45%"></th>  
+                    <th width="10%"></th>
+                </tr>
+              
+              <tr>  
+                    <td class="active text-right">อ.ผู้ดูแล :<br>เบอร์ :</td>
+                    <td>{{data.ecr_teacher}}<br>เบอร์ {{data.ecr_tea_mobile}}</td>
+                    <td class="active text-right">E-Mail :</td> 
+                    <td>{{data.ecr_tea_mail}}</td> 
+                    <td></td>  
+                </tr> 
+                
+                <tr>  
+                    <td class="active text-right">ISP :</td> 
+                    <td>{{data.ecr_isp}} </td> 
+                    <td class="active text-right">บันทึก :</td>
+                    <td>{{data.ecr_note1}}<br>{{data.ecr_note2}}</td> 
+                    <td></td>  
+                </tr>
+                
+                <tr>  
+                    <td class="active text-right">ย้ายห้อง :</td> 
+                    <td>{{data.ecr_room}} </td> 
+                    <td class="active text-right">ระยะสาย :</td>
+                    <td>{{data.ecr_note3}}</td> 
+                    <td></td>  
+                </tr>
+                
+                <tr>  
+                    <td class="active text-right">ผู้เข้าติดตั้ง :</td> 
+                    <td>{{data.ecr_dealer}} </td> 
+                    <td class="active text-right">เบอร์ :</td>
+                    <td>{{data.ecr_dealer_tel}}</td> 
+                    <td></td>  
+                </tr>
+                
+                <tr>  
+                    <td class="active text-right">ระบบ Conference :</td> 
+                    <td>{{data.ecr_conference}} </td> 
+                    <td class="active text-right">ระบบ IPTV :</td>
+                    <td>{{data.ecr_iptv}}</td> 
+                    <td></td>  
+                </tr>
+                
+                <tr>  
+                    <td class="active text-right">ระบบ Multicast :</td> 
+                    <td>{{data.ecr_iptv_multicast}} </td> 
+                    <td class="active text-right">DMP :</td>
+                    <td>{{data.ecr_dmp_regis}}</td> 
+                    <td></td>  
+                </tr>
+            
+              
+         
+            <table class="table" ng-repeat="data in ecr">  
+                <tr class="active">  
+                    <th width="15%">รายการ อุปกรณ์</th>
+                    <th width="25%">สถานะ</th>  
+                    <th width="25%">อาการ</th>  
+                    <th width="25%">การแก้ปัญหา</th>  
+                </tr>  
+                
+                <tr>
+                    <td class="active text-right">Cisco Codec</td>
+                    <td>{{data.ecr_codec_stat}}</td>
+                    <td>{{data.ecr_codec_note}}</td>
+                    <td>{{data.ecr_codec_solve}}</td>
+                </tr>
+
+                <tr>
+                    <td class="active text-right">Cisco DMP 4350g</td>
+                    <td>{{data.ecr_dmp_stat}}</td>
+                    <td>{{data.ecr_dmp_note}}</td>
+                    <td>{{data.ecr_dmp_solve}}</td>
+                </tr>
+                
+                <tr>
+                    <td class="active text-right">Cisco Edge 300</td>
+                    <td>{{data.ecr_edge_stat}}</td>
+                    <td>{{data.ecr_edge_note}}</td>
+                    <td>{{data.ecr_edge_solve}}</td>
+                </tr>
+                
+                <tr>
+                    <td class="active text-right">Cisco Switch 2960</td>
+                    <td>{{data.ecr_sw_stat}}</td>
+                    <td>{{data.ecr_sw_note}}</td>
+                    <td>{{data.ecr_sw_solve}}</td>
+                </tr>
+                
+                <tr>
+                    <td class="active text-right">Activ Board</td>
+                    <td>{{data.ecr_board_stat}}</td>
+                    <td>{{data.ecr_board_note}}</td>
+                    <td>{{data.ecr_board_solve}}</td>
+                </tr>
+                
+                <tr>
+                    <td class="active text-right">Visualizer</td>
+                    <td>{{data.ecr_vis_stat}}</td>
+                    <td>{{data.ecr_vis_note}}</td>
+                    <td>{{data.ecr_vis_solve}}</td>
+                </tr>
+                
+                <tr>
+                    <td class="active text-right">TV LED 1</td>
+                    <td>{{data.ecr_tv1_stat}}</td>
+                    <td>{{data.ecr_tv1_note}}</td>
+                    <td>{{data.ecr_tv1_solve}}</td>
+                </tr>
+                
+                <tr>
+                    <td class="active text-right">TV LED 2</td>
+                    <td>{{data.ecr_tv2_stat}}</td>
+                    <td>{{data.ecr_tv2_note}}</td>
+                    <td>{{data.ecr_tv2_solve}}</td>
+                </tr>
+                
+                <tr>
+                    <td class="active text-right">Printer</td>
+                    <td>{{data.ecr_printer_stat}}</td>
+                    <td>{{data.ecr_printer_note}}</td>
+                    <td>{{data.ecr_printer_solve}}</td>
+                </tr>
+                
+                <tr>
+                    <td class="active text-right">โต๊ะครู</td>
+                    <td>{{data.ecr_table_stat}}</td>
+                    <td>{{data.ecr_table_note}}</td>
+                    <td>{{data.ecr_table_solve}}</td>
+                </tr>
+                
+                <tr>
+                    <td class="active text-right">สายสัญญาณ</td>
+                    <td>{{data.ecr_compo_stat}}</td>
+                    <td>{{data.ecr_compo_note}}</td>
+                    <td>{{data.ecr_compo_solve}}</td>
+                </tr>
+            </table>  
+                
+       <table class="table"> 
+            <tr class="active"> 
+                <td class="text-center"><a href="http://prinnm.com/sp/project_data/ecr_pdf/58/pics_report/{{data.ecr_smis}}.pdf" target="_blank"><i class="glyphicon glyphicon-list-alt"></i> รายงาน MA 58/1</td> 
+                <td class="text-center"><a href="http://prinnm.com/sp/project_data/ecr_pdf/58/pics_report/{{data.ecr_smis}}.pdf" target="_blank"><i class="glyphicon glyphicon-list-alt"></i> รายงาน MA 59/1</td>
+                <td class="text-center"><a href="http://prinnm.com/sp/project_data/ecr_pdf/58/pics_report/{{data.ecr_smis}}.pdf" target="_blank"><i class="glyphicon glyphicon-list-alt"></i> รายงาน MA 59/2</td>
+                <td class="text-center"><a href="http://prinnm.com/sp/project_data/ecr_pdf/58/pics_report/{{data.ecr_smis}}.pdf" target="_blank"><i class="glyphicon glyphicon-list-alt"></i> รายงาน MA 60/1</td>
+                <td class="text-center"><a href="http://prinnm.com/sp/project_data/ecr_pdf/58/pics_report/{{data.ecr_smis}}.pdf" target="_blank"><i class="glyphicon glyphicon-list-alt"></i> รายงาน MA 60/2</td>
+            </tr>
+        </table>
+        
+    </div>      <!---------------------------จบส่วนแสดง E-Classroom ----------------------------->
+
+    
+   <!---------------------------แสดงผล USO ----------------------------->
+    <div class = "panel panel-info" ng-repeat="data in uso | limitTo:-1" ng-show="data.uso_smis != null">   
+        
+          <div class = "panel-heading" >
+            <h4 class = "panel-title">ข้อมูลโครงการ USO</h4>
+          </div>
+        
+          <table class="table" ng-repeat="data in uso | limitTo:-1"> 
+              
+              <tr class="active">  
+                    <th width="10%">{{data.uso_phase}}</th>
+                    <th width="25%"></th>  
+                    <th width="10%" class="text-left"></th>
+                    <th width="45%" >
+                        <p><font color="#FF4500">อัพเดทข้อมูลล่าสุดเมื่อ   {{data.uso_update  | date:'dd-MM-yyyy เวลา HH:mm'}}</font></p>
+                    </th>  
+                    <th width="10%"></th>
+                </tr> 
+                           
+              <tr>
+                    <td class="active text-right">อ.ผู้ดูแล USO:</td>
+                    <td>{{data.uso_teacher}}</td>
+                    <td class="active text-right">เบอร์ :  / E-Mail</td> 
+                    <td>{{data.uso_tea_mobile}} / {{data.uso_tea_mail}}</td> 
+                    <td></td>  
+              </tr>
+            
+             
+             
+          </table>
+    
+             <table class="table" ng-repeat="data in uso">  
+                <tr class="active">  
+                    <th width="15%">รายการ</th>
+                    <th width="25%">หมายเลขเครื่อง</th>  
+                    <th width="25%">หมายเลขจอ</th>  
+                    <th width="25%">หมายเหตุ</th>  
+                </tr>  
+                <tr>  
+                    <td class="active text-right">Server IBM X3400 : </td>  
+                    <td>{{data.uso_server}}</td>  
+                    <td>{{data.uso_server_mo}}</td>  
+                    <td>{{data.uso_server_stat}}</td>  
+                </tr> 
+                <!--// เครื่องครู -->
+                 <tr>  
+                    <td class="active text-right">PC ครู : </td>  
+                    <td>{{data.uso_pc0}}</td>  
+                    <td>{{data.uso_pc0_mo}}</td>  
+                    <td>{{data.uso_pc0_stat}}</td>  
+                </tr>
+
+                <tr>  
+                    <td class="active text-right">PC 1 : </td>  
+                    <td>{{data.uso_pc1}}</td>  
+                    <td>{{data.uso_pc1_mo}}</td>  
+                    <td>{{data.uso_pc1_stat}}</td>  
+                </tr>  
+
+                <tr>  
+                    <td class="active text-right">PC 2 : </td>  
+                    <td>{{data.uso_pc2}}</td>  
+                    <td>{{data.uso_pc2_mo}}</td>  
+                    <td>{{data.uso_pc2_stat}}</td>  
+                </tr>
+
+                <tr>  
+                    <td class="active text-right">PC 3 : </td>  
+                    <td>{{data.uso_pc3}}</td>  
+                    <td>{{data.uso_pc3_mo}}</td>  
+                    <td>{{data.uso_pc3_stat}}</td>  
+                </tr>
+
+                <tr>  
+                    <td class="active text-right">PC 4 : </td>  
+                    <td>{{data.uso_pc4}}</td>  
+                    <td>{{data.uso_pc4_mo}}</td>  
+                    <td>{{data.uso_pc4_stat}}</td>  
+                </tr>
+
+                <tr>  
+                    <td class="active text-right">PC 5 : </td>  
+                    <td>{{data.uso_pc5}}</td>  
+                    <td>{{data.uso_pc5_mo}}</td>  
+                    <td>{{data.uso_pc5_stat}}</td>  
+                </tr>
+
+                <tr>  
+                    <td class="active text-right">PC 6 : </td>  
+                    <td>{{data.uso_pc6}}</td>  
+                    <td>{{data.uso_pc6_mo}}</td>  
+                    <td>{{data.uso_pc6_stat}}</td>  
+                </tr>
+
+                <tr>  
+                    <td class="active text-right">PC 7 : </td>  
+                    <td>{{data.uso_pc7}}</td>  
+                    <td>{{data.uso_pc7_mo}}</td>  
+                    <td>{{data.uso_pc7_stat}}</td>  
+                </tr>
+
+                <tr>  
+                    <td class="active text-right">PC 8 : </td>  
+                    <td>{{data.uso_pc8}}</td>  
+                    <td>{{data.uso_pc8_mo}}</td>  
+                    <td>{{data.uso_pc8_stat}}</td>  
+                </tr>
+
+                <tr>  
+                    <td class="active text-right">PC 9 : </td>  
+                    <td>{{data.uso_pc9}}</td>  
+                    <td>{{data.uso_pc9_mo}}</td>  
+                    <td>{{data.uso_pc9_stat}}</td>  
+                </tr>
+
+                <tr>  
+                    <td class="active text-right">PC 10 : </td>  
+                    <td>{{data.uso_pc10}}</td>  
+                    <td>{{data.uso_pc10_mo}}</td>  
+                    <td>{{data.uso_pc10_stat}}</td>  
+                </tr>
+                 <!--// UPS -->
+                <tr>  
+                    <td class="active text-right">UPS Ultra 1000VA : </td>  
+                    <td>{{data.uso_ups1}}</td>  
+                    <td></td>  
+                    <td>{{data.uso_ups1_stat}}</td>   
+                </tr>
+
+                 <tr>  
+                    <td class="active text-right">UPS Ultra 600VA : </td>  
+                    <td>{{data.uso_ups6}}</td> 
+                    <td></td> 
+                    <td>{{data.uso_ups6_stat}}</td>   
+                </tr>
+
+                <tr>  
+                    <td class="active text-right">Printer : </td>  
+                    <td>{{data.uso_printer}}</td>
+                    <td></td> 
+                    <td>{{data.uso_printer_stat}}</td>   
+                </tr>
+
+                <tr>  
+                    <td class="active text-right">Projector พร้อมจอรับภาพ: </td>  
+                    <td>{{data.uso_projector}}</td>  
+                    <td></td> 
+                    <td>{{data.uso_projector_stat}}</td>   
+                </tr>
+
+                <tr>  
+                    <td class="active text-right">เครื่องเล่น DVD : </td>  
+                    <td>{{data.uso_dvd}}</td>  
+                    <td></td> 
+                    <td>{{data.uso_dvd_stat}}</td>   
+                </tr>
+
+                <tr>  
+                    <td class="active text-right">จอ LCD TV 32นิ้ว : </td>  
+                    <td>{{data.uso_lcd}}</td>  
+                    <td></td> 
+                    <td>{{data.uso_lcd_stat}}</td>   
+                </tr>
+
+                <tr>  
+                    <td class="active text-right">เครื่องรับสัญญาณดาวเทียม : </td>  
+                    <td>{{data.uso_rev}}</td>  
+                    <td></td> 
+                    <td>{{data.uso_rev_stat}}</td>   
+                </tr>
+
+                <tr>  
+                    <td class="active text-right">เครื่องปรับอากาศ 1 : </td>  
+                    <td>{{data.uso_air1}}</td>  
+                    <td></td> 
+                    <td>{{data.uso_air1_stat}}</td>   
+                </tr>
+
+                <tr>  
+                    <td class="active text-right">เครื่องปรับอากาศ 2 : </td>  
+                    <td>{{data.uso_air2}}</td>  
+                    <td></td> 
+                    <td>{{data.uso_air2_stat}}</td>   
+                </tr>
+
+            </table> 
+        
+        <table class="table"> 
+            <tr class="active"> 
+                <td class="text-center"><a href="http://prinnm.com/sp/project_data/uso_pdf/3/{{data.uso_smis}}.pdf" target="_blank"><i class="glyphicon glyphicon-list-alt"></i> รายงาน MA ครั้งที่ 1 </td> 
+                <td class="text-center"><a href="http://prinnm.com/sp/project_data/uso_pdf/3/{{data.uso_smis}}.pdf" target="_blank"><i class="glyphicon glyphicon-list-alt"></i> รายงาน MA ครั้งที่ 2 </td>
+                <td class="text-center"><a href="http://prinnm.com/sp/project_data/uso_pdf/3/{{data.uso_smis}}.pdf" target="_blank"><i class="glyphicon glyphicon-list-alt"></i> รายงาน MA ครั้งที่ 3 </td>
+                
+            </tr>
+        </table>
+        
+    </div>      <!---------------------------จบส่วนแสดง แสดง USO ----------------------------->
+                    
+            
+            <br>
+</div>
+
+    <a href="#/ap" class="btn btn-default">Back</a>
+   

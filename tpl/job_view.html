@@ -1,0 +1,74 @@
+<div class="container" >
+        
+    
+<!--     --------------------------- แสดงข้อมูลพื้นฐานของโรงเรียน  ----------------------------------------- -->
+    
+<div class = "panel panel-primary" ng-repeat="data in job | limitTo:-1">   
+        
+          <div class = "panel-heading" >
+            <h4 class = "panel-title">รายละเอียดการเข้างานหมายเลข # {{data.job_id}}</h4>
+          </div>
+        
+          
+             <table class="table" ng-repeat="data in job | limitTo:-1">  
+               
+<!--                วันที่เวลา -->
+               
+                <tr>  
+                    <td class="active text-right" width="15%">วัน-เวลา :</td> 
+                    <td width="35%">{{data.job_date}}</td>
+                    <td class="active text-right" width="15%">โครงการ :</td>
+                    <td width="35%">{{data.job_project}}</td>
+                    <td></td>
+    
+                </tr> 
+                 
+                <tr>  
+                    <td class="active text-right" width="15%">ชื่อโรงเรียน :</td> 
+                    <td width="35%">{{data.sch_name}} {{data.job_smis}}</td>    
+                    <td class="active text-right" width="15%">ประเภทงาน :</td>
+                    <td width="35%">{{data.job_type}}</td>
+                    <td></td>
+    
+                </tr>  
+                <tr>  
+                    <td class="active text-right">ผู้ติดต่อ :</td> 
+                    <td>{{data.job_tea}}</td> 
+                    <td class="active text-right">เบอร์โทร / Email :</td>
+                    <td>{{data.job_tea_tel}} / {{data.job_tea_mail}} </td>
+                    <td></td> 
+                </tr>  
+               
+                  <tr>  
+                    <td class="active text-right">ตัวแทน :</td> 
+                    <td>{{data.job_dea}}</td> 
+                    <td class="active text-right">เบอร์โทร / Email :</td>
+                    <td>{{data.job_dea_tel}} / {{data.job_dea_mail}} </td>
+                    <td></td> 
+                </tr> 
+               
+               <tr>  
+                    <td class="active text-right">สถานะงาน :</td> 
+                    <td>{{data.job_stat}}</td> 
+                    <td class="active text-right">ข้อมูลอื่นๆ :</td>
+                    <td>{{data.job_note}} </td>
+                    <td></td> 
+                </tr> 
+               
+            </table> 
+        
+    <!--- ส่วนการแสดง Footter ข้อมูลโรงเรียนทั่วไป --->
+<!--         <table class="table">  
+            <tr class="active"> 
+                <td class="text-center"><a ng-href="http://data.bopp-obec.info/emis/schooldata-view_student.php?School_ID={{data.sch_ten}}&Area_CODE={{data.sch_smis.substring(0,4)}}" target="_blank"><i class="glyphicon glyphicon-education"></i> ข้อมูลนักเรียน</td> 
+                <td class="text-center"><a ng-href="http://data.bopp-obec.info/emis/schooldata-view_techer.php?School_ID={{data.sch_ten}}&Area_CODE={{data.sch_smis.substring(0,4)}}" target="_blank"><i class="glyphicon glyphicon-user"></i> ข้อมูลครูบุคลากร </td>
+                <td class="text-center"><a ng-href="http://data.bopp-obec.info/emis/schooldata-view_com-internet.php?School_ID={{data.sch_ten}}&Area_CODE={{data.sch_smis.substring(0,4)}}" target="_blank"><i class="glyphicon glyphicon-globe"></i> ข้อมูลระบบ IT. </td>
+                <td class="text-center"><a ng-href="http://data.bopp-obec.info/emis/schooldata-view_bobec.php?School_ID={{data.sch_ten}}&Area_CODE={{data.sch_smis.substring(0,4)}}" target="_blank"><i class="glyphicon glyphicon-home"></i> ข้อมูลสิ่งก่อสร้าง </td>
+                <td class="text-center"><a ng-href="http://data.bopp-obec.info/emis/schooldata-view_mobec.php?School_ID={{data.sch_ten}}&Area_CODE={{data.sch_smis.substring(0,4)}}" target="_blank"><i class="glyphicon glyphicon-folder-open"></i> ข้อมูลครุภัณฑ์ </td>
+            </tr>
+        </table>   
+        
+    </div>      <!---------------------------จบส่วนแสดง แสดงรายละเอียด โรงเรียน ----------------------------->
+
+    
+</div>

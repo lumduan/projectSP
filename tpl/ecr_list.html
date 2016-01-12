@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<div  ng-class="{ active:menu.HeaderText = 'e-Classroom', active:menu.setMainMenuActive('ecr') }">
+<input type="text" class="form-control " ng-model="search" placeholder="Search">
+<br>  
+<table class="table table-striped" ng-class="{ active:menu.setMainMenu(true) }">  
+  <thead>  
+  <tr class="active"> 
+      
+    <th width="5%" class="css-order text-center" ng-click="predicate = 'ecr_smis'; reverse=!reverse">#  
+    <span class="caret" ng-show="predicate=='ecr_smis'"  ng-class="{'caret-reversed':predicate=='ecr_smis' && !reverse}"></span>  
+    </th> 
+    
+    <th width="10%" class="css-order" ng-click="predicate = 'ecr_smis'; reverse=!reverse">รหัส  
+    <span class="caret" ng-show="predicate=='ecr_smis'"  ng-class="{'caret-reversed':(predicate=='ecr_smis' && !reverse)}"></span>  
+    </th> 
+    
+    <th width="30%" class="css-order" ng-click="predicate = 'ecr_sch'; reverse=!reverse">ชื่อโรงเรียน  
+    <span class="caret" ng-show="predicate=='ecr_sch'"  ng-class="{'caret-reversed':(predicate=='ecr_sch' && !reverse)}"></span>  
+    </th> 
+    
+    <th class="css-order"  ng-click="predicate = 'ecr_city'; reverse=!reverse">จังหวัด
+    <span class="caret" ng-show="predicate=='ecr_city'"  ng-class="{'caret-reversed':predicate=='ecr_city' && !reverse}"></span>  
+    </th> 
+    
+    <th width="30%" class="css-order" ng-click="predicate = 'ecr_teacher'; reverse=!reverse">ผู้รับผิดชอบ  
+    <span class="caret" ng-show="predicate=='ecr_teacher'"  ng-class="{'caret-reversed':(predicate=='ecr_teacher' && !reverse)}"></span>  
+    </th>
+    
+    <th width="30%" class="css-order" ng-click="predicate = 'ecr_tea_mobile'; reverse=!reverse">เบอร์โทรศัพท์  
+    <span class="caret" ng-show="predicate=='ecr_tea_mobile'"  ng-class="{'caret-reversed':(predicate=='ecr_tea_mobile' && !reverse)}"></span>  
+    </th>
+    
+    <th width="5%" >   
+    </th>  
+    
+    <th width="5%"  class="text-center">  
+    <!--
+    <a href="#/new"><i class="glyphicon glyphicon-plus"></i></a> 
+    -->
+    </th>  
+  </tr>  
+  </thead>  
+  
+  <!--       BODY     -->
+  
+  <tbody>  
+  <tr ng-repeat="data in ecr | filter:search | orderBy:predicate:reverse ">
+      
+   <td class="text-center">{{$index+1}}</td>  
+   
+    <td>{{data.ecr_smis}}</td> 
+     
+    <td><a href="#/sch_view/{{data.ecr_smis}}">{{data.ecr_sch}}</a></td>  
+
+    <td>{{data.ecr_city}}</td>  
+    
+    <td>{{data.ecr_teacher}}</td>  
+    
+    <td>{{data.ecr_tea_mobile}}</td>  
+    
+     <td></td>  
+    
+    <td class="text-center">  
+      <a href="http://prinnm.com/sp/project_data/ecr_pdf/58/pics_report/{{data.ecr_smis}}.pdf" target="_blank"><i class="glyphicon glyphicon-file"></i></a>
+      
+    </td>  
+    <!-- <td class="text-center">  
+      <a ng-href="#/" ng-click="deleteData(data.ecr_smis)"><i class="glyphicon glyphicon-remove"></i></a>   
+    </td>  --> 
+  </tr>  
+  </tbody>  
+</table> 
+
+    </div>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<input type="text" class="form-control " ng-model="search" placeholder="Search">
+<br>  
+<table class="table table-striped">  
+  <thead>  
+  <tr class="active"> 
+      
+    <th width="10%" class="css-order text-center" ng-click="predicate = 'id'; reverse=!reverse">#  
+    <span class="caret" ng-show="predicate=='id'"  ng-class="{'caret-reversed':predicate=='id' && !reverse}"></span>  
+    </th> 
+    
+    <th width="30%" class="css-order" ng-click="predicate = 'name'; reverse=!reverse">Name  
+    <span class="caret" ng-show="predicate=='name'"  ng-class="{'caret-reversed':(predicate=='name' && !reverse)}"></span>  
+    </th> 
+    
+    <th class="css-order"  ng-click="predicate = 'tel'; reverse=!reverse">Tel  
+    <span class="caret" ng-show="predicate=='tel'"  ng-class="{'caret-reversed':predicate=='tel' && !reverse}"></span>  
+    </th> 
+    
+    <th width="30%" class="css-order" ng-click="predicate = 'director'; reverse=!reverse">ครูใหญ่  
+    <span class="caret" ng-show="predicate=='director'"  ng-class="{'caret-reversed':(predicate=='director' && !reverse)}"></span>  
+    </th>
+    
+    <th width="5%" >   
+    </th>  
+    <th width="5%"  class="text-center">  
+    <a href="#/new"><i class="glyphicon glyphicon-plus"></i></a>              
+    </th>  
+  </tr>  
+  </thead>  
+  
+  <!--       BODY     -->
+  
+  <tbody>  
+  <tr ng-repeat="data_ in sch | filter:search | orderBy:predicate:reverse ">
+      
+   <td class="text-center">{{$index+1}}</td>  
+   
+    <td><a href="#/view/{{data_.smis}}">{{data_.name}}</a></td>  
+    
+    <td>{{data_.tel}}</td>  
+    
+    <td>{{data_.director}}</td>  
+    
+    <td class="text-center">  
+      <a href="#/edit/{{data_.smis}}"><i class="glyphicon glyphicon-pencil"></i></a>   
+    </td>  
+    <td class="text-center">  
+       <a ng-href="#/" ng-click="deleteData(data_.smis)"><i class="glyphicon glyphicon-remove"></i></a>   
+    </td>  
+  </tr>  
+  </tbody>  
+</table> 

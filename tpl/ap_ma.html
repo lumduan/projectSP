@@ -1,0 +1,157 @@
+                
+<form role="form" name="myApMaForm" ng-class="{ active:menu.setMainMenu(false) }"> 
+                
+  
+  <div class="control-group"> 
+      
+  <!-- 1. --------------------------------------------------------------------------------------------->  
+      <div class = "panel panel-primary" ng-repeat="data in ap | limitTo:-1" ng-show="data.ap_smis == null">   <!-- ตัวแทนใส่รหัสก่อน -->
+          <div class = "panel-heading">
+            <h4 class = "panel-title">1. ใส่รหัส smis 8 หลักของโรงเรียน และกดค้นหา </h4>
+          </div>
+          <br>
+          <p> &nbsp;&nbsp; หากไม่ทราบรหัส smis 8 หลักของโรงเรียน ให้เข้าไปค้นดูที่ <a href="http://data.bopp-obec.info/emis/index.php" target="_blank"> คลิ๊ก !! </a></P>
+                     
+          <table class="table">  
+                   
+              <tr>
+                  
+                 
+                  <td width="50%"><input type="text" class="form-control" name="name" ng-model="temp_sims" 
+                                         placeholder="ใส่รหัส smis ของโรงเรียน 8 หลัก"
+                                         required
+                                         data-fv-notempty-message="The username is required"/></td>
+                  <td width="15%" class="text-left" ><a ng-href ="{{'#/ap_ma/'}}{{temp_sims}}" ng-show="temp_sims != null"> <button>ต่อไป</button> </a></td>
+                  <td width="15%"></td>
+                  <td width="10%"></td>          
+   
+              </tr>
+          </table> 
+          <br>
+          
+       </div> <!-- จบส่วนใส่รหัส 8 หลัก -->
+       
+           <!---2...------------------------------------------------------------------------------------------>  
+     
+      
+           <div class = "panel panel-info" ng-repeat="data in ap | limitTo:-1" ng-show="data.ap_smis != null">   <!-- กรอกข้อมูลอุปกรณ์ -->
+          <div class = "panel-heading">
+            <h4 class = "panel-title">2. กรอกข้อมูลอุปกรณ์ ในโครงการให้ครบถ้วน </h4>
+          </div>
+        
+     
+          <table class="table" >  
+                <tr class="active">  
+                    <th width="10%">รายการ</th>
+                    <th width="10%">รุ่น</th>
+                    <th width="15%">หมายเลขเครื่อง</th>  
+                    <th width="5%">สถานะ</th>  
+                    <th width="45%">หมายเหตุ</th>  
+                    <th class="text-center" width="5%"><a href="#/ap_add/{{data.ap_smis}}"><i class="glyphicon glyphicon-plus"></i></a></th>  
+                </tr>  
+                <tr ng-repeat="data in ap">  
+                    <td class="active text-right">{{data.de_type}} : </td> 
+                    <td>{{data.de_name}}</td> 
+                    <td>{{data.de_sn}}</td>  
+                    <td>{{data.de_stat}}</td>  
+                    <td>{{data.de_note}}</td>  
+                    <td class="text-center">
+                        <a href="#/ap_edit/{{data.de_sn}}"><i class="glyphicon glyphicon-pencil"></i></a>
+                    </td> 
+                </tr> 
+
+                </table> 
+            
+
+       </div> <!-- จบส่วนกรอกข้อมูลอุปกรณ์ -->
+      
+       
+       <!--------------------------------------------------------------------------------------------->  
+       
+     <!-- 3.. --------------------------------------------------------------------------------------------->  
+       
+        <div class = "panel panel-success" ng-repeat="data in ap | limitTo:-1" ng-show="data.ap_smis != null" >   <!-- กรอกข้อมูลโรงเรียน -->
+          <div class = "panel-heading">
+            <h4 class = "panel-title">3. กรอกข้อมูลโรงเรียน และผู้ติดต่อให้ครบถ้วน ทุกช่อง ! </h4>
+          </div>
+        
+     
+          <table class="table" ng-repeat="data in ap | limitTo:-1">  
+                
+              <tr>
+                  <td colspan="7"><h4>โรงเรียน {{data.ap_sch}} </h4></td>
+                  
+              </tr>
+              
+              
+              <tr>
+                  <td class="text-right" width="10%">ครูผู้รับผิดชอบ :</td>
+                  <td width="20%"><input type="text" class="form-control" name="name" ng-model="data.ap_teacher"></td>
+                  <td class="text-right" width="10%">เบอร์มือถือ ครู :</td>
+                  <td width="20%"><input type="text" class="form-control" name="name" ng-model="data.ap_tel1"></td>
+                  <td class="text-right" width="10%">e-mail ครู :</td>
+                  <td width="20%"><input type="text" class="form-control" name="name" ng-model="data.ap_tea_mail"></td>
+                  <td class="text-center" width="10%"></td>
+              </tr>
+              <tr ng-show="data.ap_teacher != '' && data.ap_tea_tel1 != '' && data.ap_tea_mail != '' && showDealer != true">
+                  <td colspan="7" class="text-center"><button ng-click="showDealer = true ; submitmyApMaForm(data)">ต่อไป</button></td>
+              </tr>
+              
+              
+              <tr ng-show = "showDealer">
+                  <td class="text-right" width="10%">ชื่อ ตัวแทน : {{SaveAndAddClick}}</td>
+                  <td width="20%"><input type="text" class="form-control" name="name" ng-model="data.job_dea"></td>
+                  <td class="text-right" width="10%">เบอร์มือถือ ตัวแทน :</td>
+                  <td width="20%"><input type="text" class="form-control" name="name" ng-model="data.job_dea_tel"></td>
+                  <td class="text-right" width="10%">e-mail ตัวแทน :</td>
+                  <td width="20%"><input type="text" class="form-control" name="name" ng-model="data.job_dea_mail"></td>
+                  <td width="10%"></td>
+              </tr>
+              <tr ng-show = "showDealer">
+                  <td colspan="7" class="text-center">หมายเหตุ ปัญหา / การแก้ไข<input type="text" class="form-control" name="name" ng-model="data.job_note"></td>
+                  
+              </tr>
+              
+              <!-- ส่วนของการกำหนดค่า Job ที่ไม่มีให้กรอกในฟอร์ม -->
+              <p hidden ng-controller="displayCtrl as toDay">{{data.job_project = "AP"}} {{data.job_type = "MA"}} 
+                  {{data.job_type = "MA"}} {{data.job_smis = data.ap_smis}}
+                  {{data.job_tea = data.ap_teacher}} {{data.job_tea_tel = data.ap_tel1}} {{data.job_tea_mail = data.ap_tea_mail}}
+                  {{data.job_stat = "สำเร็จ"}}
+              </p>
+              
+              <tr ng-show = "data.job_dea != '' && data.job_dea != null &&
+                  data.job_dea_tel != '' && data.job_dea_tel != null &&
+                  data.job_dea_mail != '' && data.job_dea_mail != null
+                  ">
+                  <td colspan="7" class="text-center"><a href="http://google.com"><i class="glyphicon glyphicon-plus" ng-click="addJobForm(data)"> บันทึก</i></a></td>
+                  
+              </tr>
+             
+             
+          </table>
+            
+
+       </div> <!-- จบส่วนกรอกข้อมูลโรงเรียน -->
+      
+       
+   
+     
+      
+      
+
+        <!--// แสดงรายละเอียดอุปกรณืทั้งหมด -->
+         
+       
+    
+  </div>
+ 
+
+  <div hidden>
+      <a href ="http://www.techno.bopp.go.th/tech/front.php"><h4 class="text-center">บันทึกข้อมูล ไปยังหน้า Techno</h4></a>
+        <!-- <a ng-href="{{'#/uso_view/'}}{{data.uso_smis}}" class="btn btn-default">Back</a>   -->
+       <!-- <a href ="http://www.techno.bopp.go.th/tech/front.php"> <button class="btn btn-default">Save</button> </a> -->
+       <!-- <button ng-show="data.id" class="btn btn-danger" ng-click="deleteData(data.id)">Delete</button>  // ng-disabled="myUsoForm.$invalid" -->
+  </div>
+ 
+</form>  
+
