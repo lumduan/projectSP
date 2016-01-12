@@ -1,5 +1,5 @@
 /**
- * @license MIT
+ * @license MITsss
  */
 (function(window, document, undefined) {'use strict';
   // ie10+
