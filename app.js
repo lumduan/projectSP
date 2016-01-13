@@ -70,7 +70,7 @@ function($http,urlData){ // กำหนดตรงนี้ด้วย
     factory.addAp = function(objSch){  
       return $http.post(urlData+"?addAp",objSch);  
     };
-    
+//     
      factory.updateAp = function(objSch,Id){  
     // ใช้ http service ส่งค่าข้อมูลไปทำการแก้ไข และมีการส่งค่า get updateFriend กับ Id ที่เป็นตัวแปรไปด้วย  
       return $http.post(urlData+"?updateAp&Id="+Id,objSch);  
@@ -113,9 +113,14 @@ function($http,urlData){ // กำหนดตรงนี้ด้วย
     
     
     ////////////////////// Job ////////////////////////////
-    factory.viewJob = function(Id){  
+    factory.viewJobSmis = function(Id){  
         // ใช้ $http service ไปดึงข้อมูลมาแสด ส่งค่า get viewSch กับ Id ที่เป็นตัวแปรไปด้วย  
-      return $http.get(urlData+"?viewJob=&Id="+Id);  // คืนค่าข้อมูลกลับ  
+      return $http.get(urlData+"?viewJobSmis=&Id="+Id);  // คืนค่าข้อมูลกลับ  
+    }; 
+  
+     factory.viewJobId = function(Id){  
+        // ใช้ $http service ไปดึงข้อมูลมาแสด ส่งค่า get viewSch กับ Id ที่เป็นตัวแปรไปด้วย  
+      return $http.get(urlData+"?viewJobId=&Id="+Id);  // คืนค่าข้อมูลกลับ  
     }; 
      
     factory.addJob = function(objSch){  
@@ -246,7 +251,16 @@ function($http,urlData){ // กำหนดตรงนี้ด้วย
       controller:'JobListCtrl',  
       templateUrl:'tpl/job_list.html'  //** test
     })
+  
+   .when('/job_viewSmis/:Id/', {  
+      controller:'JobViewSmisCtrl',  
+//       templateUrl:''  //** test
+    })
     
+  .when('/job_viewId/:Id/', {  
+      controller:'JobViewIdCtrl',  
+      templateUrl:'tpl/job_view.html'  //** test
+    })
     
     
     .otherwise({ // กรณีอื่นๆ ที่่ไม่เข้าเงื่อนไข  
@@ -913,7 +927,7 @@ function($scope,$location,$routeParams,mySch){ // กำหนดตรงนี
         $scope.uso = result;  // 
     }); 
     
-    mySch.viewJob($routeParams.Id).success(function(result){  
+    mySch.viewJobSmis($routeParams.Id).success(function(result){  
         $scope.job = result;  // 
     }); 
     $scope.predicate = "-job_date";    
@@ -929,9 +943,11 @@ function($scope,$location,mySch,$interval){ // กำหนดตรงนี้
     $scope.job = {}; // กำหนด ตัวแปร object ที่เราจะไปเรียกใช้ ในหน้า list.html  
     $interval(autoUpdateJob, 1000); // กำหนดเวลา update mili Sec.
     // พอแสดงหน้า list.html ให้ เรียกใช้งาน ฟังก์ชั่น ใน myFriend service ที่เราสร้าง  
+  
+  
     
     function autoUpdateJob(){  // สั่งให้ Auto Update ตาราง Job
-    mySch.viewJob('').success(function(result){ // 
+    mySch.viewJobSmis('').success(function(result){ // 
         $scope.job = result;  // เอาค่าข้อมูลที่ได้ กำหนดให้กับ ตัวแปร object  
     });  
       
@@ -945,13 +961,28 @@ function($scope,$location,mySch,$interval){ // กำหนดตรงนี้
       
 }]) 
 
-.controller("JobViewCtrl",["$scope","$location","$routeParams","mySch",  
+.controller("JobViewSmisCtrl",["$scope","$location","$routeParams","mySch",  
 function($scope,$location,$routeParams,mySch){ // กำหนดตรงนี้ด้วย แต่ไม่ต้องมี ""  
     // กำหนดตัวแปร object สำหรับไว้ส่งค่าไปแสดงในหน้า view.html  
     $scope.job = {};  //ข้อมูลโครงการ job
     
     
-     mySch.viewJob($routeParams.Id).success(function(result){  
+     mySch.viewJobSmis($routeParams.Id).success(function(result){  
+        $scope.job = result;  // เมื่อมีกาาคืนค่า ก็ให้เขาข้อมูลที่ได้มาไว้ในตัวแปร object << USO
+    }); 
+    
+
+    
+    
+}])  
+
+.controller("JobViewIdCtrl",["$scope","$location","$routeParams","mySch",  
+function($scope,$location,$routeParams,mySch){ // กำหนดตรงนี้ด้วย แต่ไม่ต้องมี ""  
+    // กำหนดตัวแปร object สำหรับไว้ส่งค่าไปแสดงในหน้า view.html  
+    $scope.job = {};  //ข้อมูลโครงการ job
+    
+    
+     mySch.viewJobId($routeParams.Id).success(function(result){  
         $scope.job = result;  // เมื่อมีกาาคืนค่า ก็ให้เขาข้อมูลที่ได้มาไว้ในตัวแปร object << USO
     }); 
     
@@ -969,11 +1000,3 @@ function($scope,$location,$routeParams,mySch){ // กำหนดตรงนี
 function($scope){  
   
 }]);  
-
-
-
-
-
-
-
-
